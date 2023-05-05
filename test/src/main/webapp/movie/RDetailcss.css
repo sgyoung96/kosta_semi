@@ -1,0 +1,511 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'KOTRA_BOLD-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* body:hover{ */
+
+/* } */
+
+.btn{
+  padding: 15px 100px;
+  margin:10px 4px;
+  color: #fff;
+  font-family: SUIT-Regular;
+  font-size : 1.3em;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+  display:inline-block;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0%;
+  left: 73px;
+  width: 50%;
+  height: 2px;
+  background: #FADE6D;
+  display: block;
+  -webkit-transform-origin: right top;
+  -ms-transform-origin: right top;
+  transform-origin: right top;
+  -webkit-transform: scale(0, 1);
+  -ms-transform: scale(0, 1);
+  transform: scale(0, 1);
+  -webkit-transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+  transition: transform 0.4s cubic-bezier(1, 0, 0, 1)
+}
+
+.btn:hover::before {
+  -webkit-transform-origin: left top;
+  -ms-transform-origin: left top;
+  transform-origin: left top;
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  transform: scale(1, 1)
+}
+
+.yess{ 
+	background-color: #121212;
+	overflow-x: hidden;
+}
+
+/*  사진이랑 기본 정보 조절 */
+
+.tmp_img {	
+	margin-top : 105px;
+    position: relative;
+ 	padding-right: 90px;
+    width: 460px;
+	height: 540px;
+}
+
+.title{	
+	position: relative;
+    top: 100px;
+    margin-left: 100px;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-family: 'KOTRA_BOLD-Bold';
+	font-size : 2.5em;
+	color : white;	
+}
+
+.tagline{	
+	position: relative;
+    top: 100px;
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	font-size : 1.1em;
+	color : white;
+}
+
+.basicinfo{	
+	position: relative;
+    top: 100px;
+    margin-left: 100px;
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	font-size : 1.1em;
+	color : white;
+}
+
+.average{	
+	position: relative;
+    top: 100px;
+    margin-left: 100px;
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	font-size : 1.1em;
+	color : white;
+}
+
+.info{
+	cursor: url(iii.cur),pointer;
+	position: relative;
+	margin-left :20px;
+	margin-right:20px;
+	top:40px;
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	font-size : 0.5em;
+	color : white;
+}
+
+input[id="popup"] {
+	display:none;
+}
+input[id="popup"] + label {
+	display : inline-block;
+	padding:20px;
+	background: black; 
+	color:white; 
+	margin-left:0px;
+}
+input[id="popup"] + label +div{
+	position : fixed; 
+	top : 0;
+	left :0;
+	width : 100%;
+	height:100%;
+	z-index:100;
+}
+
+input[id="popup"] + label +div >div {
+	position : absolute;
+	top : 50% ;
+	left : 50% ;
+	transform:translate(-50%,-50%);
+	width: 800px;
+	height :600px;
+	text-align :center;
+	background : dimgray;
+	border-radius: 10%;
+	z-index:2;
+}
+
+input[id="popup"] + label +div >label{
+	position : absolute;
+	top :0% ; 
+	left : 0%;
+	width : 100%;
+	height :100%;
+	background:rgba(169 ,169, 169,.9);
+	z-index:1;
+}
+
+input[id="popup"] + label +div {
+	display :none;
+}
+
+input[id="popup"]:checked + label +div {
+	display :block;
+}
+
+.check { 
+	position : relative; 
+	top : 200px; 
+	left: 100px;
+}
+
+.watch{
+	font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	font-size : 1.1em;
+	color : white;
+}
+
+/* 하트 */
+
+a{
+  text-decoration:none; color:white; cursor: pointer;
+}
+
+
+.icon .heart{
+	
+	 display: flex;
+    align-items: center;
+    justify-content: center;
+    
+/*     하트위치 조정 */
+    width: calc(100vw * (100 / 1920));
+    height: calc(100vw * (100/ 1920));
+    background-color: #fff;
+	
+}
+
+/* 하트 크기 조절 */
+.icon.heart img{
+    width: calc(100vw * (35 / 1920));
+    height: calc(100vw * (35 / 1920));
+ 
+}
+
+.icon.heart.fas{
+color :#FADE6D;  
+  }
+.heart{
+    transform-origin: center;
+}
+.heart.active img{
+    animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart{
+    0%{transform:scale(.2);}
+    40%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+  }
+  
+ /* 별점주기 */
+.star-rating {
+  display: inline-block;
+  
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  
+  /*거꾸로 별점 다시잡기*/
+  display: inline-block;
+  direction: rtl;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: #ffffff;
+  font-size: 2rem;
+  margin: 0 0.2rem;
+  cursor: pointer;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: #FADE6D;
+}
+
+.star-rating input:checked ~ label {
+  color: #FADE6D;
+} 
+
+@font-face {
+	    font-family: 'GangwonEduHyeonokT_OTFMediumA';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduHyeonokT_OTFMediumA.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
+	#showComments{
+	color : white;
+	}
+	
+	#add_comment_txt {
+		cursor: pointer;
+	}
+	
+	
+	.comment_table {
+		height: 100px;
+		width: 35%;
+	}
+	
+	.comment_area {
+		width: 40%;
+		height: 100px;
+		position: relative;
+		border: 1px solid #FADE6D;
+		border-radius: 15px;
+		color: white;
+		margin-top: 20px;
+	}
+	
+	#comment_area {
+		vertical-align: middle;
+	}
+	
+	.comment_area_btn {
+		padding-left: 50px;
+	}
+	
+	.comment { 
+	cursor: pointer; 
+	margin-top: 10px; 
+	margin-left: 20px; 
+	/* 0 0 5px rgba(81, 203, 238, 1) */ 
+	background-color: #000000; 
+	width: 90%; 
+	height: 80px; 
+	border: 0 solid #000000; 
+	overflow-y: hidden; resize: none; 
+	font-family: 'GangwonEduHyeonokT_OTFMediumA'; 
+	font-size: 1.6em; 
+	color: #ffffff; 
+	}
+	.comment:focus { 
+	box-shadow: #000000; border: #000000; outline: none; }
+	
+	.comment:hover {
+		color: #FADE6D;
+	}
+	
+	.comment::before {
+	  content: '';
+	  position: absolute;
+	  bottom: 0%;
+	  left: 50px;
+	  width: 9%;
+	  height: 2px;
+	  background: #FADE6D;
+	  display: block;
+	  margin-top: -10px;
+	  -webkit-transform-origin: right top;
+	  -ms-transform-origin: right top;
+	  transform-origin: right top;
+	  -webkit-transform: scale(0, 1);
+	  -ms-transform: scale(0, 1);
+	  transform: scale(0, 1);
+	  -webkit-transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+	  transition: transform 0.4s cubic-bezier(1, 0, 0, 1)
+	}
+	
+	.comment:hover::before {
+	  -webkit-transform-origin: left top;	
+	  -ms-transform-origin: left top;
+	  transform-origin: left top;
+	  -webkit-transform: scale(1, 1);
+	  -ms-transform: scale(1, 1);
+	  transform: scale(1, 1)
+	}
+	
+	.write_popup {
+		display: inline;
+		width: 50%;
+		height: 50%;
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		z-index: 10;
+	}
+	
+	.dimmed {
+		background-color: #99999900;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	
+	.dimmed::before {
+		content: '';
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background-color: rgba(255, 255, 255, 0.55);
+		-webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
+	}
+	
+	.addpopup {
+		z-index: 3;
+		position: relative;
+		min-width: 300px;
+		max-width: 600px;
+		background-color: #fff;
+		border-radius: 15px;
+		box-shadow: 0 2px 55px -25px rgb(0 0 0/ 100%);
+	}
+	
+	.addpopup>.addtitle {
+		border-radius: 15px 15px 0 0;
+		min-height: 40px;
+		color: #fff;
+		background-color: #FADE6D;
+		padding: 10px 15px;
+		box-sizing: border-box;
+		font-family: 'SUIT Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css') format('sans-serif');
+	    font-weight: bold;
+	    font-style: bold;
+	    font-size: 1em;
+	}
+	
+	.addpopup>.content {
+		padding: 20px;
+		box-sizing: border-box;
+		color: black; 
+		font-family: 'GangwonEduHyeonokT_OTFMediumA'; 
+		font-size: 1.5em;
+	}
+	
+	.commentpop { 
+		background-color: #FFFFFF; 
+		outline-color: #FFFFFF;
+		height: 50%; 
+		width: 100%; 
+		border: 0; 
+		overflow-y: hidden; 
+		resize: none; 
+	}
+	
+	.addpopup>.cmd {
+		bottom: 0;
+		min-height: 40px;
+		padding: 15px 15px;
+		box-sizing: border-box;
+		border-radius: 0 0 15px 15px;
+		min-height: 40px;
+		text-align: right;
+	}
+	
+	.addpopup>.cmd .popbutton {
+		border-radius: 8px;
+		padding: 5px 10px;
+		border: 1px solid #aaa;
+	}
+	
+	.addpopup>.cmd .popbutton:hover {
+		color: #fff;
+		background-color: #000;
+		border-color: #000;
+	}
+	
+	
+	.checkbox-wrap { cursor: pointer; font-family: 'SUIT Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css') format('sans-serif');
+	    color: black; font-size: 0.8em; }
+	.checkbox-wrap .check-icon  { display: inline-block; width: 25px; height: 25px; color: #AFAFAF;  content: url(../image/spoiler_gray.png); /* center no-repeat;  */vertical-align: middle; transition-duration: .3s; }
+	.checkbox-wrap input[type=checkbox] { display: none; }
+	.checkbox-wrap input[type=checkbox]:checked + .check-icon { color: #FADE6D; content: url(../image/spoiler.png); }
+	
+	.go_write{
+	  cursor: pointer;
+	  font-family: sans-serif;
+	  text-transform: uppercase;
+	  text-align: center;
+	  position: relative;
+	  text-decoration: none;
+	  display:inline-block;
+	  color: #FFFFFF;
+	  margin-top: 5px;
+	}
+
+	.go_write:hover {
+		color: #FADE6D;
+	}
+	
+	.go_write::before {
+	  content: '';
+	  position: absolute;
+	  bottom: 0%;
+	  left: 0px;
+	  width: 100%;
+	  height: 2px;
+	  background: #FADE6D;
+	  display: block;
+	  -webkit-transform-origin: right top;
+	  -ms-transform-origin: right top;
+	  transform-origin: right top;
+	  -webkit-transform: scale(0, 1);
+	  -ms-transform: scale(0, 1);
+	  transform: scale(0, 1);
+	  -webkit-transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+	  transition: transform 0.4s cubic-bezier(1, 0, 0, 1)
+	}
+	
+	.go_write:hover::before {
+	  -webkit-transform-origin: left top;	
+	  -ms-transform-origin: left top;
+	  transform-origin: left top;
+	  -webkit-transform: scale(1, 1);
+	  -ms-transform: scale(1, 1);
+	  transform: scale(1, 1)
+	}

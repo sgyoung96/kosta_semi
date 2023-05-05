@@ -1,0 +1,14 @@
+Project Setting Guide
+
+1. Import Project
+2. Set Project Folder at root project
+3. Set Build Path
+3-1. JAVA 1.7 (17)
+3-2. Remove unbounded Tomcat Server
+3-3. Add Library -> Runtime Server -> Installed Tomcat Server 9.0
+4. Set Build Facet -> Runtime -> Tomcat 9.0
+5. Add Project at Tomcat Server
+6. Check Server.xml -> path setting
+7. Run Project
+7-1. find '/iphone/NewFile.html'
+7-2. Run as Server

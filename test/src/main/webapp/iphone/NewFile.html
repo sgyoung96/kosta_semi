@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="style.css">
+<style>
+
+#dimmed {
+	background-color: #99999900;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	z-index: 50;
+}
+
+#dimmed::before {
+	z-index: 50;
+	content: '';
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.55);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+#movie {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+</style>
+
+<script>
+	$(document).ready(function() {
+						var movieticket = $('#movie');
+						movieticket.show();
+						$('#movieticket').show();
+
+						movieticket.click(function() {
+
+							movieticket.hide();
+						});
+
+						jQuery.fn.center = function() {
+							this.css("position", "absolute");
+							this.css("top", (jQuery(window).height() - this
+									.height())
+									/ 2 + jQuery(window).scrollTop() + "px");
+							this.css("left", (jQuery(window).width() - this
+									.width())
+									/ 2 + jQuery(window).scrollLeft() + "px");
+							return this;
+						}
+
+						jQuery('#movieticket').center();
+
+						// Set the time on the header if it's displayed
+						if ($(".top-bar .time").length > 0) {
+							$(".time").html(displayTime());
+						}
+
+						// Setup the background
+						setupBG();
+
+						// Set the calendar icon
+						$(".icon.calendar .weekday").html(displayWeekday());
+						$(".icon.calendar .date").html(displayDate());
+
+						// Set the clock icon
+						rotateClock();
+						setInterval(function() {
+							rotateClock();
+						}, 60000);
+
+						// Rotate the degrees in Safari
+						rotateDegrees($(".iphone .screen .icon.safari .compass .degrees hr"));
+						// Rotate the degrees in the Compass
+						rotateDegrees($(".iphone .screen .icon.compass .degrees hr"));
+
+					});
+
+	// ***************
+	// Functions
+	// ***************
+
+	function displayTime() {
+		var str = "";
+
+		var currentTime = new Date();
+		var hours = currentTime.getHours();
+		var minutes = currentTime.getMinutes();
+		var extra = "";
+
+		if (minutes < 10) {
+			minutes = "0" + minutes;
+		}
+		if (hours > 11) {
+			extra = "PM"
+		} else {
+			extra = "AM"
+		}
+		hours = hours % 12;
+		if (hours < 1) {
+			hours = 12;
+		}
+		str = hours + ":" + minutes + " " + extra;
+		return str;
+	}
+
+	function setupBG() {
+		var maxTop = $(".iphone .screen .home .bg").height();
+		var maxLeft = $(".iphone .screen .home .bg").width();
+		for (i = 0; i < 25; i++) {
+			$(".iphone .screen .home .bg").prepend("<span></span>");
+			var top = Math.floor((Math.random() * maxTop) + 1);
+			var left = Math.floor((Math.random() * maxLeft) + 1);
+			$(".iphone .screen .home .bg span:first").css('top', top + 'px');
+			$(".iphone .screen .home .bg span:first").css('left', left + 'px');
+		}
+		$(".iphone .screen .home .bg span").fadeIn(2000);
+		moveBG();
+	}
+
+	function moveBG() {
+		setInterval(function() {
+			$(".iphone .screen .home .bg span:odd").each(function() {
+				moveBGSpan($(this));
+			});
+		}, 2000);
+		setInterval(function() {
+			$(".iphone .screen .home .bg span:even").each(function() {
+				moveBGSpan($(this));
+			});
+		}, 1000);
+	}
+
+	function moveBGSpan(span, mul) {
+		var height = $(".iphone .screen .home .bg").height();
+		var width = $(".iphone .screen .home .bg").width();
+
+		var top = $(span).position().top
+				+ (10 - Math.floor(Math.random() * 30));
+		var left = $(span).position().left
+				+ (10 - Math.floor(Math.random() * 30));
+		if (top > height) {
+			top = (height - 5);
+		} else if (top < 0) {
+			top = 5;
+		}
+		if (left > width) {
+			left = (width - 5);
+		} else if (left < 0) {
+			left = 5;
+		}
+
+		$(span).animate({
+			top : top,
+			left : left
+		}, 3000);
+	}
+
+	function displayWeekday() {
+		var d = new Date();
+		var weekday = new Array(7);
+		weekday[0] = "Sunday";
+		weekday[1] = "Monday";
+		weekday[2] = "Tuesday";
+		weekday[3] = "Wednesday";
+		weekday[4] = "Thursday";
+		weekday[5] = "Friday";
+		weekday[6] = "Saturday";
+
+		var n = weekday[d.getDay()];
+		return n;
+	}
+
+	function displayDate() {
+		var d = new Date();
+		var date = d.getDate();
+		return date;
+	}
+
+	function rotateClock(set) {
+		var currentTime = new Date();
+		var hours = currentTime.getHours();
+		var minutes = currentTime.getMinutes();
+		var seconds = currentTime.getSeconds();
+
+		hours = (hours % 12) + (minutes / 60);
+
+		hDeg = (hours * 360) / 12;
+		mDeg = (minutes * 360) / 60;
+		sDeg = (seconds * 360) / 60;
+
+		$(".icon.clock .clock").addClass("set");
+
+		doRotate(".icon.clock hr.hour", hDeg);
+		doRotate(".icon.clock hr.minute", mDeg);
+		doRotate(".icon.clock hr.second", sDeg);
+
+		setTimeout(function() {
+			$(".icon.clock .clock").removeClass("set");
+			doRotate(".icon.clock hr.second", (sDeg + 360));
+		}, 1);
+	}
+
+	function rotateDegrees(target) {
+		var deg = 0;
+		var inc = 360 / $(target).length;
+		$(target).each(function() {
+			doRotate($(this), deg);
+			deg += inc;
+		});
+	}
+
+	function doRotate(target, deg) {
+		$(target).css({
+			'-moz-transform' : 'rotate(' + deg + 'deg)',
+			'-webkit-transform' : 'rotate(' + deg + 'deg)',
+			'-o-transform' : 'rotate(' + deg + 'deg)',
+			'-ms-transform' : 'rotate(' + deg + 'deg)',
+			'transform' : 'rotate(' + deg + 'deg)'
+		});
+	}
+</script>
+
+<script>
+	let clickCount = 0; // 클릭 횟수
+
+	function a() {
+
+		clickCount++;
+		const clickX = event.clientX; // 마우스 클릭 위치의 X 좌표
+		const clickY = event.clientY; // 마우스 클릭 위치의 Y 좌표
+
+		// 클릭 횟수에 따라 이미지 경로 결정.
+		let imagePath;
+		switch (clickCount) {
+		case 1:
+			imagePath = "aa.png";
+			break;
+		case 2:
+			imagePath = "b.png";
+			break;
+		case 3:
+			imagePath = "d.png";
+			break;
+		default:
+			return;
+		}
+
+		const img = document.createElement("img");
+		img.style.position = "absolute";
+		img.style.left = clickX + "px";
+		img.style.top = clickY + "px";
+		img.src = imagePath;
+		img.style.display = "block";
+		img.style.width = "200px";
+		img.style.height = "200px";
+		img.style.left = "620px";
+		document.body.appendChild(img);
+
+		// 1초 후에 이미지 요소 제거
+		setTimeout(function() {
+			img.style.display = "none";
+			document.body.removeChild(img);
+		}, 1000);
+	}
+</script>
+</head>
+<body>
+	<div id="movie">
+		<div id="dimmed">
+			<img id="movieticket" src="asdf.png"
+				style="display: none; z-index: 100;">
+		</div>
+	</div>
+	<div class="iphone-border">
+		<span class="top left"> <span class="ringer"></span> <span
+			class="volume up"></span> <span class="volume down" onclick="a();">
+				<img id="myImg">
+				 <!--     <img id="myImg" src="" style="display:none;"> -->
+		</span>
+		</span> <span class="top right"> <span class="power"></span>
+		</span> <span class="bottom left"></span> <span class="bottom right"></span>
+
+		<div class="iphone">
+			<span class="speaker"></span>
+			<div class="screen">
+
+				<div class="home">
+					<div class="bg"></div>
+
+					<div class="top-bar">
+						<span class="signal">&#9679;&#9679;&#9679;&#9679;&#9679;</span> <span
+							class="wifi"><hr /></span> <span class="time">2:30 PM</span> <span
+							class="battery">100%</span>
+					</div>
+
+					<div class="icons">
+
+						<a class="icon messages" alt="Messages">
+							<hr />
+						</a> <a href="../main/count.jsp" class="icon calendar" alt="조각별"
+							id="icon calendar"> <!--     <img class="icon calendar" alt="조각별"class="icon calendar" alt="조각별" src="1.png"  onclick ="location.href='#'"> -->
+
+							<img src="1.png" style="width: 45px; height: 45px;"> <!--       <span class="weekday"></span> -->
+							<!--       <span class="date"></span> -->
+						</a> <a class="icon photos" alt="Photos"> <span class="orange"></span>
+							<span class="yellow"></span> <span class="green"></span> <span
+							class="seafoam"></span> <span class="blue"></span> <span
+							class="purple"></span> <span class="pink"></span> <span
+							class="red"></span>
+						</a> <a class="icon camera" alt="Camera"> <span class="shutter"></span>
+							<div class="body">
+								<span class="lens"></span>
+							</div>
+						</a> <a class="icon weather" alt="Weather"> <span class="sun"></span>
+							<span class="cloud"></span>
+						</a> <a class="icon clock" alt="Clock">
+							<div class="clock">
+								<div>
+									<span>12</span>
+								</div>
+								<div>
+									<span>11</span><span>1</span>
+								</div>
+								<div>
+									<span>10</span><span>2</span>
+								</div>
+								<div>
+									<span>9</span><span>3</span>
+								</div>
+								<div>
+									<span>8</span><span>4</span>
+								</div>
+								<div>
+									<span>7</span><span>5</span>
+								</div>
+								<div>
+									<span>6</span>
+								</div>
+								<hr class="minute" />
+								<hr class="hour" />
+								<hr class="second" />
+							</div>
+						</a> <a class="icon maps" alt="Maps"></a> <a class="icon videos"
+							alt="Videos">
+							<div class="arm">
+								<div>
+									<span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+								</div>
+							</div>
+						</a> <a class="icon notes" alt="Notes">
+							<div class="binding"></div>
+							<hr />
+							<hr />
+							<hr />
+						</a> <a class="icon reminders" alt="Reminders">
+							<hr />
+							<hr />
+							<hr />
+							<hr />
+							<hr />
+						</a> <a class="icon stocks" alt="Stocks">
+							<div class="graph">
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+							</div> <span class="current"></span>
+						</a> <a class="icon calculator" alt="Calculator"> <span
+							class="left top">+</span><span class="right top">-</span> <span
+							class="left bottom">&#215;</span><span class="right bottom">=</span>
+						</a> <a class="icon voicememos" alt="Voice Memos">
+							<div class="soundwave">
+								<hr class="two" />
+								<hr class="three" />
+								<hr class="two" />
+								<hr class="three" />
+								<hr class="two" />
+								<hr class="one" />
+								<hr class="two" />
+								<hr class="three" />
+								<hr class="fourteen" />
+								<hr class="twelve" />
+								<hr class="eighteen" />
+								<hr class="sixteen" />
+								<hr class="fourty" />
+								<hr class="thirty" />
+								<hr class="thirtyone" />
+								<hr class="sixteen" />
+								<hr class="twelve" />
+								<hr class="six" />
+								<hr class="twelve" />
+								<hr class="fourteen" />
+								<hr class="six" />
+								<hr class="seven" />
+								<hr class="eight" />
+								<hr class="five" />
+								<hr class="four" />
+								<hr class="five" />
+								<hr class="four" />
+								<hr class="three" />
+								<hr class="two" />
+								<hr class="three" />
+								<hr class="two" />
+								<hr class="three" />
+								<hr class="two" />
+								<hr class="three" />
+							</div>
+						</a> <a class="icon itunesstore" alt="iTunes Store">
+							<div class="note">
+								<span class="arm"></span> <span class="arm"></span>
+							</div>
+						</a> <a class="icon passbook" alt="Passbook">
+							<div class="flights">
+								<span><hr /></span>
+							</div>
+							<div class="movies">
+								<span><hr />
+									<hr /></span>
+							</div>
+							<div class="restaurants">
+								<span></span>
+							</div>
+						</a> <a class="icon compass" alt="Compass">
+							<div class="degrees">
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<hr />
+								<span class="horizontal"></span> <span class="vertical"></span>
+							</div>
+						</a> <a class="icon facetime" alt="FaceTime">
+							<div class="camera">
+								<span class="lens"></span>
+							</div>
+						</a> <a class="icon settings" alt="Settings"></a>
+
+					</div>
+
+					<div class="nav-bar">
+						<span>&#9679;</span> <span>&#9679;</span>
+					</div>
+
+					<div class="footer-bar icons">
+						<a class="icon phone" alt="Phone"> <span></span>
+						</a> <a class="icon mail" alt="Mail">
+							<div class="envelope">
+								<span class="flap"></span>
+							</div>
+						</a> <a class="icon safari" alt="Safari">
+							<div class="compass">
+								<div class="degrees">
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+									<hr />
+								</div>
+							</div>
+						</a> <a class="icon music" alt="Music">
+							<div class="note">
+								<span class="arm"></span> <span class="arm"></span>
+							</div>
+						</a>
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+			<a href="#" class="home"></a>
+		</div>
+	</div>
+
+
+
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</body>
+</html>
